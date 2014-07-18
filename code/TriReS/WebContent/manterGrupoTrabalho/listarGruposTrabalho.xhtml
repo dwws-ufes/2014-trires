@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_recursos/template.xhtml">
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.verificaAutorizacao}" />
+	</f:metadata>
+	
+	<ui:define name="titulo">
+		<h:outputText value="Listar Grupos de Trabalho" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<p:toolbar>
+			<p:toolbarGroup align="left">
+				<p:button outcome="incluirGrupoTrabalho" value="Incluir Grupo de Trabalho" icon="ui-icon-document"/>
+			</p:toolbarGroup>
+		</p:toolbar>
+
+		<h1 class="tituloPrincipal">Lista de dados</h1>
+		
+		<h:form>
+			<p:dataTable id="dataTable" var="grupoTrabalho"
+				value="#{grupoTrabalhoController.gruposTrabalho}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,25,50">
+				<p:column>
+					<f:facet name="header">#</f:facet>
+					<h:outputText value="#{grupoTrabalho.id}" />
+				</p:column>
+	
+				<p:column sortBy="#{grupoTrabalho.nome}">
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:link outcome="editarGrupoTrabalho" value="#{grupoTrabalho.nome}"
+						title="Editar #{grupoTrabalho.nome}">
+						<f:param name="id" value="#{grupoTrabalho.id}" />
+					</h:link>
+				</p:column>
+	
+				<p:column sortBy="#{grupoTrabalho.descricao}">
+					<f:facet name="header">
+						<h:outputText value="Descrição" />
+					</f:facet>
+					<h:outputText value="#{grupoTrabalho.descricao}" />
+				</p:column>
+				
+				<p:column sortBy="#{grupoTrabalho.ativo}">
+					<f:facet name="header">
+						<h:outputText value="Ativo" />
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{grupoTrabalho.ativo}" disabled="true" />
+				</p:column>
+				
+				<p:column sortBy="#{grupoTrabalho.usuarioLider.nome}">
+					<f:facet name="header">
+						<h:outputText value="Usuário Líder" />
+					</f:facet>
+					<h:outputText value="#{grupoTrabalho.usuarioLider.nome}" />
+				</p:column>
+		
+			</p:dataTable>
+		</h:form>
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+	</ui:define>
+</ui:composition>
+</html>

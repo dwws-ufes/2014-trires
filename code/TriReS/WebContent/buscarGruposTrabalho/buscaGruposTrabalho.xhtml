@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_recursos/template.xhtml">
+      
+    <f:metadata>
+		<f:event type="preRenderView" listener="#{buscaGruposTrabalhoController.inicializaBusca}" />
+	</f:metadata>
+      
+	<ui:define name="titulo">
+		<h:outputText value="Busca por Grupos de Trabalho" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+		    
+		    <p:panelGrid id="filtro" columns="1">
+		   		<f:facet name="header">
+		   			<h:outputText value="Grupos de trabalho - informe o termo" />
+		   		</f:facet>
+			
+				<p:inputTextarea id="nome" value="#{buscaGruposTrabalhoController.textoBusca}" label="Texto para Busca" required="true" cols="100" rows="5" >
+					<f:validateLength minimum="5" maximum="60" />
+				</p:inputTextarea>
+				
+				<p:watermark for="nome" value="As palavras fornecidas serão procuradas no nome, descrição, objetivos e palavras-chave dos grupos" />
+				
+				<f:facet name="footer">
+					<p:commandButton icon="ui-icon-search" value="Buscar" ajax="true"
+						actionListener="#{buscaGruposTrabalhoController.buscarGruposTrabalho}" 
+						onclick="dlg.show();" oncomplete="dlg.hide();" update="panelResultado" />
+					<p:commandButton icon="ui-icon-document" value="Limpar" ajax="true"
+						actionListener="#{buscaGruposTrabalhoController.novaBusca}" 
+						update="nome panelResultado" />
+				</f:facet>
+			</p:panelGrid>
+		    <p />
+		    
+		    <p:dialog id="dialog" widgetVar="dlg" dynamic="true" modal="true"
+		    	closable="false" draggable="false" showHeader="false" resizable="false" >  
+		    	<h:graphicImage style="padding-top:3px;" title="Carregando..." alt="Carregando" value="../_recursos/img/loading.gif" />  
+			</p:dialog>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+			<p:outputPanel id="panelResultado">
+				<p:panel rendered="#{buscaGruposTrabalhoController.resultado}">
+				    <h:outputText id="textoResultado" value="Resultado da busca para '#{buscaGruposTrabalhoController.textoBusca}': " />
+					<br /><br />
+					<p:dataList id="dataList" value="#{buscaGruposTrabalhoController.gruposTrabalho}" var="grupoTrabalho" 
+						paginator="true" rows="10" rowsPerPageTemplate="10,25,50" type="none" emptyMessage="Não há dados para o termo pesquisado." 
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						currentPageReportTemplate="Exibindo {startRecord}-{endRecord} de {totalRecords}" 
+						paginatorAlwaysVisible="false">
+							<h:outputText value="#{grupoTrabalho.nome}" styleClass="resultadoBuscaLinhaAzul" /> <br />
+							<h:link outcome="visualizarGrupoTrabalho" target="_blank">
+								<f:param name="id" value="#{grupoTrabalho.id}" />
+								<h:outputText value="#{buscaGruposTrabalhoController.urlBase}/grupo/uri/#{grupoTrabalho.id}" styleClass="resultadoBuscaLinhaVerde"/>
+							</h:link><br />
+							<h:outputText value="Liderado por #{grupoTrabalho.usuarioLider.nome}" /><br /> 
+							<h:outputText value="#{grupoTrabalho.descricao}" /> <br />
+							<h:outputText value="#{grupoTrabalho.objetivo}" />
+							<br /><br />
+					</p:dataList>
+				</p:panel>
+			</p:outputPanel>
+	
+		</h:form>
+		
+	</ui:define>
+  
+</ui:composition>
+</html>

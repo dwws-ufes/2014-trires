@@ -1,0 +1,11 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+    <span id="nomeUsuario"><h:outputText value="#{loginController.usuario.nome}" /> </span>
+    <span id="grupoUsuario"><h:outputText value="#{loginController.grupoTrabalho.nome}" /> </span>
+    <span id="perfilUsuario">Perfil: <h:outputText value="#{loginController.usuario.perfilAcesso.descricao}" /></span>
+
+</ui:fragment>

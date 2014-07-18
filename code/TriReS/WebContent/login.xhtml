@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_recursos/template.xhtml">
+	<ui:define name="titulo">
+		<h:outputText value="Identifique-se" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:focus />
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="Identifique-se" />
+				</f:facet>
+				
+				<h:outputLabel for="login" value="Login *" />
+				<p:inputText id="login" value="#{loginController.usuario.email}" label="Login" required="true" size="40">
+					<f:validateLength maximum="100" />
+				</p:inputText>
+				
+				<h:outputLabel for="senha" value="Senha *" />
+				<p:password id="senha" value="#{loginController.usuario.senha}" label="Senha" required="true" size="20">
+					<f:validateLength maximum="100" />
+				</p:password>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Entrar" icon="ui-icon-check"
+						actionListener="#{loginController.autenticar}" update="senha" />
+					<p:button value="Cancelar" outcome="index" />
+				</f:facet>
+			</p:panelGrid>
+			
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+		</h:form>
+			
+	</ui:define>
+</ui:composition>
+</html>

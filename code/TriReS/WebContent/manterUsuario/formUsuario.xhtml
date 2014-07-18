@@ -1,0 +1,70 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.verificaAutorizacaoAdmin}" />
+	</f:metadata>
+	
+	<h:form>
+	
+		<p:focus />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText value="Formulário" />
+			</f:facet>
+			
+			<h:outputLabel for="nome" value="Nome *" />
+			<p:inputText id="nome" value="#{usuarioController.usuario.nome}" label="Nome" required="true" size="40">
+				<f:validateLength minimum="5" maximum="60" />
+			</p:inputText>
+			
+			<h:outputLabel for="descricao" value="Descrição *" />
+			<p:inputText id="descricao" value="#{usuarioController.usuario.descricao}" label="Descrição" required="true" size="60">
+				<f:validateLength minimum="5" maximum="100" />
+			</p:inputText>
+			
+			<h:outputLabel for="instituicao" value="Instituição" />
+			<p:inputText id="instituicao" value="#{usuarioController.usuario.instituicao}" label="Instituição" size="20">
+				<f:validateLength minimum="2" maximum="100" />
+			</p:inputText>
+			
+			<h:outputLabel for="lattes" value="Link Lattes *"  />
+			<p:inputText id="lattes" value="#{usuarioController.usuario.linkLattes}" label="Link lattes" required="true" size="60">
+				<f:validateLength minimum="5" maximum="255" />
+			</p:inputText>
+			
+			<h:outputLabel for="perfil" value="Perfil *" />
+			<p:selectOneButton id="perfil" value="#{usuarioController.usuario.perfilAcesso}" layout="custom" required="true" label="Perfil">
+				<f:selectItems value="#{usuarioController.perfis}"/>
+			</p:selectOneButton>
+			
+			<h:outputLabel for="ativo" value="Ativo *" />
+			<p:selectBooleanButton id="ativo" value="#{usuarioController.usuario.ativo}" onLabel="Sim"
+				offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" required="true" label="Ativo" />
+			
+			<h:outputLabel for="email" value="Email *" />
+			<p:inputText id="email" value="#{usuarioController.usuario.email}" label="Email" required="true" size="40">
+				<f:validateLength minimum="5" maximum="100" />
+			</p:inputText>
+			
+			<h:outputLabel for="senha" value="Senha *" />
+			<p:password id="senha" value="#{usuarioController.usuario.senha}" inline="true" feedback= "true" required="true" label="Senha" size="20"/>
+				
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" icon="ui-icon-disk"
+					action="#{usuarioController.salvar}" onclick="dlg.show();" oncomplete="dlg.hide();"
+					rendered="#{usuarioController.usuario != null}" />
+				<p:button value="Cancelar" outcome="listarUsuarios" />
+			</f:facet>
+		</p:panelGrid>
+		
+		<p:dialog id="dialog" widgetVar="dlg" dynamic="true" modal="true"
+	    	closable="false" draggable="false" showHeader="false" resizable="false" >  
+	    	<h:graphicImage style="padding-top:3px;" title="Carregando..." alt="Carregando" value="../_recursos/img/loading.gif" />  
+		</p:dialog>
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+	</h:form>
+</ui:fragment>

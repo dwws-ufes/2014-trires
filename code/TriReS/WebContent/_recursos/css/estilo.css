@@ -1,0 +1,208 @@
+body
+{
+	margin-top:0px;
+	margin-left:8px;
+	margin-right:8px;
+	padding: 0px;
+	background-image:url(../img/bgFundoPrincipal.gif);
+	background-repeat:repeat-x;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size:11px;
+	text-align:left;	
+	color:#000000;
+	min-width: 950px;
+}
+
+
+h1.tituloPrincipal{
+
+	color: #444444;
+	font-size:16px;
+	border-bottom:#E7E7E7 solid 1px;
+	background-image:url(../img/setaTitulo.gif);
+	background-repeat:no-repeat;
+	background-position:left center;
+	padding-left:15px;
+}
+
+#pagina
+{
+	width: 100%;
+	text-align: left;
+	margin: 0 auto;
+}
+
+
+/*Topo*/
+
+#topo{
+
+	height:75px;
+	background-image:url(../img/fundoTopoSistema3.gif);
+	background-repeat:no-repeat;
+	background-position:center;
+
+}
+
+#logomarcaSistema{
+	border : 0px;
+	margin-left: 10px;
+
+}
+
+#logomarcaUfes{
+
+	margin-bottom:10px;
+
+}
+
+#divLogoUfes{
+
+	text-align: right;
+
+}
+
+#informacoesUsuario{
+
+	float:right;
+	margin-top:15px;
+
+}
+
+#nomeUsuario, #perfilUsuario, #grupoUsuario{
+
+	display:block;
+	color:#FFFFFF;
+	padding-left: 25px;
+	
+}
+
+#nomeUsuario
+{
+	background-image: url(../img/chave.gif);
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+
+
+/* TOPO MENU */
+#conteudo{
+
+	clear:both;
+	background-image:url(../img/fundoConteudoTopo.gif);
+	background-repeat:repeat-x;
+	background-color:#FFFFFF;
+	padding-left: 5px;
+	margin: 0px;
+
+}
+
+#curvaTopo{
+
+	background-image:url(../img/fundoTopoPaginaCurva.gif);
+	background-repeat:repeat-x;
+	height:14px;
+	margin: 0px 12px 0px 12px;
+	
+}
+
+#curvaEsquerda
+{
+	position: relative;
+	float:left;
+	left: -12px;
+}
+
+#curvaDireita{
+
+	position: relative;
+	float:right;
+	margin-right: -12px;
+
+}
+
+/*Menu */
+
+#menu
+{
+	display:inline-block;
+	position:absolute;
+	padding: 10px 0px 5px 5px;
+	top: 90px;
+
+}
+
+/*Dados da página */
+
+#dados{
+	display:inline-block;
+	margin:5px 5px 5px 5px;
+	position: relative;
+	clear: both;
+	left: 180px;
+}
+
+
+/* CUSTOMIZAÇÃO DO CONTEUDO */
+#conteudo
+{
+	border-left: solid 5px white;
+	border-right: solid 5px white;
+	padding-top:3px;
+	min-height: 320px;
+}
+
+/* CRIAÇÃO DO RODAPE */
+#rodape
+{
+	background-color:#FFFFFF;
+	border-top: solid 1px #d4d4d4;
+	
+	border-left: solid 13px #ffffff;
+	border-right: solid 13px #ffffff;
+	
+	text-align: right;
+	padding-top: 15px;
+}
+
+#rodape label
+{
+	color: #565656;
+}
+
+#curvaRodape
+{
+	background-color: #ffffff;
+	height: 14px;
+	margin: 0px 12px 0px 12px;
+}
+
+#curvaRodape .curvaEsquerda
+{
+	position: relative;
+	float: left;
+	left: -12px;
+}
+
+#curvaRodape .curvaDireita
+{
+	position: relative;
+	float: right;
+	margin-right: -12px;
+}
+
+.ui-datalist, .ui-datalist-content, .ui-panel
+{
+	border:0px; !important
+}
+.resultadoBuscaLinhaAzul
+{
+	color: blue;
+	font-weight:bold;
+	font-size:14px;
+}
+.resultadoBuscaLinhaVerde
+{
+	color: green;
+	font-size:11px;
+}

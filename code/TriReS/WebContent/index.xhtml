@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_recursos/template.xhtml">
+	<ui:define name="titulo">
+		<h:outputText value="Bem-vindo" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<div>
+			<img style="border:0; width: 110px; height: 110px; float:left;" src="_recursos/img/books.png" /><p>Revisão sistemática é uma forma de executar revisões abrangentes da literatura de forma não tendenciosa.<br/>
+			Uma revisão sistemática sobre determinado tema possui o critério de seleção explícito, de forma que outros<br/> 
+			pesquisadores podem avaliar a qualidade da revisão e/ou executá-la novamente.</p>
+			<p>Este sistema tem como objetivo apoiar o processo de consulta sistemático e seleção de trabalhos.<br/>
+			Para utilizar o sistema, você deve ser convidado por algum grupo de trabalho.</p>
+		</div>
+		
+		<div style="padding-left:110px;">
+			<p>Os grupos de trabalho e os usuários estão dispostos publicamente através da busca de grupos de trabalho.<br/>
+			Estão disponíveis também no formato RDF, acessível através da URI do objeto por aplicações que não sejam navegadores.<br/> 
+			A ontologia de domínio está disponível em <a href="#{facesContext.externalContext.requestContextPath}/rdf-schema"><h:outputText value="rdf-schema"/></a></p>
+			<p>Bons estudos!</p>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_recursos/template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{buscaGruposTrabalhoController.idSelecionado}" />
+		<f:event type="preRenderView" listener="#{buscaGruposTrabalhoController.visualizar}" />
+	</f:metadata>
+
+	<ui:define name="titulo">
+		<h:outputText value="Dados do Grupo de Trabalho" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form>
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="Informações" />
+				</f:facet>
+			
+				<h:outputLabel value="URI" />
+				<h:outputText value="#{buscaGruposTrabalhoController.urlBase}/grupo/uri/#{buscaGruposTrabalhoController.grupoTrabalho.id}" />
+			
+				<h:outputLabel value="Nome" />
+				<h:outputText value="#{buscaGruposTrabalhoController.grupoTrabalho.nome}" />
+				
+				<h:outputLabel value="Descrição" />
+				<h:outputText value="#{buscaGruposTrabalhoController.grupoTrabalho.descricao}" />
+				
+				<h:outputLabel value="Objetivo" />
+				<h:outputText value="#{buscaGruposTrabalhoController.grupoTrabalho.objetivo}" />
+				
+				<h:outputLabel value="Palavras-chave" />
+				<h:outputText value="#{buscaGruposTrabalhoController.grupoTrabalho.palavrasChave}" />
+				
+				<h:outputLabel value="Ativo" />
+				<p:selectBooleanButton id="ativo" value="#{buscaGruposTrabalhoController.grupoTrabalho.ativo}" onLabel="Sim"
+					offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" disabled="true" label="Ativo" />
+				
+				<h:outputLabel value="Líder" />
+				<h:outputLink value="#{buscaGruposTrabalhoController.urlBase}/usuario/uri/#{buscaGruposTrabalhoController.grupoTrabalho.usuarioLider.id}" target="_blank">
+					<h:outputText value="#{buscaGruposTrabalhoController.grupoTrabalho.usuarioLider.nome}"/>
+				</h:outputLink>
+				
+				<h:outputLabel value="Membros" />
+				<p:dataTable id="dataTableUsuariosMembros" var="usuario" emptyMessage="Não há membros neste grupo."
+					value="#{buscaGruposTrabalhoController.grupoTrabalho.usuariosMembros}">
+					<p:column>
+						<h:outputLink value="#{buscaGruposTrabalhoController.urlBase}/usuario/uri/#{usuario.id}" target="_blank">
+							<h:outputText value="#{usuario.nome}"/>
+						</h:outputLink>
+					</p:column>
+				</p:dataTable>
+				
+			</p:panelGrid>
+	
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

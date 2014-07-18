@@ -1,0 +1,30 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:menu>
+		<p:submenu label="Acesso">
+			<p:menuitem value="Identificar-se" outcome="/login" 
+				rendered="#{loginController.perfilAnonimo}" />
+			<p:menuitem value="Sair" outcome="/sair" 
+				rendered="#{loginController.perfilAdministrador || loginController.perfilUsuarioRegistrado}" />
+		</p:submenu>
+		<p:submenu label="Cadastros" rendered="#{loginController.perfilAdministrador || loginController.perfilUsuarioRegistrado}">
+			<p:menuitem value="Grupos de trabalho" outcome="/manterGrupoTrabalho/listarGruposTrabalho" />
+			<p:menuitem value="Usuários" outcome="/manterUsuario/listarUsuarios"
+				rendered="#{loginController.perfilAdministrador}" />
+			<p:menuitem value="Bibliotecas" outcome="/manterBiblioteca/listarBibliotecas"
+				rendered="#{loginController.perfilAdministrador}" />
+		</p:submenu>
+		<p:submenu label="Pesquisas">
+			<p:menuitem value="Grupos de trabalho" outcome="/buscarGruposTrabalho/buscaGruposTrabalho" />
+			<p:menuitem value="Trabalhos em Bibliotecas" outcome="/pesquisarTrabalhos/pesquisarTrabalhosBibliotecas" 
+				rendered="#{loginController.perfilAdministrador || loginController.perfilUsuarioRegistrado}" />
+			<p:menuitem value="Trabalhos selecionados" outcome="/listarTrabalhosGrupoTrabalho/listaTrabalhosGrupo" 
+				rendered="#{loginController.perfilAdministrador || loginController.perfilUsuarioRegistrado}" />
+		</p:submenu>
+	</p:menu>
+
+</ui:fragment>

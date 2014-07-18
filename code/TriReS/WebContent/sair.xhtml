@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_recursos/template.xhtml">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.efetuarLogoff}" />
+	</f:metadata>
+	
+	<ui:define name="titulo">
+		<h:outputText value="Sair do sistema" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<div>
+			<h:outputText value="Sua sessão foi finalizada com sucesso." />
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

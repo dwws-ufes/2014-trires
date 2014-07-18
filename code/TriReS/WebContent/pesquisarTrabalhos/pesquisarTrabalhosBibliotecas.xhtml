@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_recursos/template.xhtml">
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{pesquisaTrabalhosBibliotecasController.inicializaPagina}" />
+	</f:metadata>
+	
+	<ui:define name="titulo">
+		<h:outputText value="Pesquisar Trabalhos em Bibliotecas" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="form">
+		    		
+		   	<p:panelGrid id="filtro" columns="1">
+		   		<f:facet name="header">
+		   			<h:outputText value="Trabalhos em bibliotecas - informe as palavras-chave" />
+		   		</f:facet>
+		   	
+				<p:inputTextarea id="query" value="#{pesquisaTrabalhosBibliotecasController.textoQuery}" label="Texto para pesquisa" required="true" cols="100" rows="5">
+					<f:validateLength minimum="4" maximum="1000" />
+				</p:inputTextarea>
+				
+				<p:watermark for="query" value="São permitidos operadores lógicos OR e AND. Exemplo de uso: (natural OR multimodal) AND (interface)" />
+				
+				<f:facet name="footer">
+					<p:commandButton icon="ui-icon-search" value="Pesquisar" 
+						actionListener="#{pesquisaTrabalhosBibliotecasController.pesquisarTrabalhos}" 
+						onclick="dlg.show();" oncomplete="dlg.hide();" update="panelResultado" />
+					<p:commandButton icon="ui-icon-document" value="Limpar" ajax="true"
+						actionListener="#{pesquisaTrabalhosBibliotecasController.novaPesquisa}" 
+						update="query panelResultado" />
+				</f:facet>
+		    </p:panelGrid>
+		    
+		    <p:dialog id="dialog" widgetVar="dlg" dynamic="true" modal="true"
+		    	closable="false" draggable="false" showHeader="false" resizable="false" >  
+		    	<h:graphicImage style="padding-top:3px;" title="Carregando..." alt="Carregando" value="../_recursos/img/loading.gif" />  
+			</p:dialog>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+		   
+		    <p:outputPanel id="panelResultado">
+				<p:panel id="panelDataList" rendered="#{pesquisaTrabalhosBibliotecasController.resultado}">
+				    <h:outputText id="qtdeResultado" value="Registros encontrados: #{pesquisaTrabalhosBibliotecasController.quantidadeRegistrosEncontrados}" /><br/>
+				    <h:outputText id="textoResultado" value="Resultado da busca para '#{pesquisaTrabalhosBibliotecasController.textoQuery}': " />
+					<br /><br />
+					<p:dataList id="dataList" value="#{pesquisaTrabalhosBibliotecasController.trabalhos}" var="trabalho" 
+						paginator="true" rows="10" rowsPerPageTemplate="10,25,50" type="none" emptyMessage="Não há dados para o termo pesquisado." 
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						currentPageReportTemplate="Exibindo {startRecord}-{endRecord} de {totalRecords}" 
+						paginatorAlwaysVisible="false">
+						
+						<h:panelGrid columns="2">
+							<h:outputText value="#{trabalho.titulo}" styleClass="resultadoBuscaLinhaAzul" />
+							<p:rating value="#{trabalho.marcadoParaLeitura}" stars="1">
+								<p:ajax event="rate" listener="#{pesquisaTrabalhosBibliotecasController.marcarTrabalhoParaLeitura}" />
+								<p:ajax event="cancel" listener="#{pesquisaTrabalhosBibliotecasController.desmarcarTrabalhoParaLeitura}" />
+							</p:rating>
+							
+							<p:commandLink update=":form:detalheTrabalho" onclick="dlg.show();" oncomplete="dlg.hide(); PF('trabalhoDialog').show();" value="#{trabalho.sameAs}" title="Visualizar detalhes" style="float:left;margin-right:10px;color:green">
+					            <f:setPropertyActionListener value="#{trabalho}" target="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado}" />
+								<h:outputText value="#{trabalho.sameAs}" styleClass="resultadoBuscaLinhaVerde"/>
+					        </p:commandLink>
+							
+						</h:panelGrid>
+						
+						<br />
+					</p:dataList>
+					
+				</p:panel>
+				
+			</p:outputPanel>
+			
+			<p:dialog header="Informações do trabalho" widgetVar="trabalhoDialog" modal="true" showEffect="blind" hideEffect="blind" resizable="false">
+		        <p:outputPanel id="detalheTrabalho" style="text-align:left;">
+		            <p:panelGrid columns="2" columnClasses="label,value" style="width:600px;">		 
+		                
+		                <h:outputText value="SameAs:" />
+		                <h:outputLink target="_blank" value="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado.sameAs}"> 
+							<h:outputText value="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado.sameAs}"/>
+						</h:outputLink>
+		                
+		                <h:outputText value="Título:" />
+		                <h:outputText value="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado.titulo}" />
+		                
+		                <h:outputText value="Resumo:" />
+		                <h:outputText value="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado.resumo}" />
+		                
+		                <h:outputText value="Autores:" />
+		                <h:outputText value="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado.autores}" />
+		                
+		                <h:outputText value="Evento:" />
+						<h:outputText value="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado.evento}"/>
+		                
+		                <h:outputText value="Data:" />
+		                <h:outputText value="#{pesquisaTrabalhosBibliotecasController.trabalhoSelecionado.data}" />
+		                
+		            </p:panelGrid>
+		        </p:outputPanel>
+		    </p:dialog>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_recursos/template.xhtml">
+	<ui:define name="titulo">
+		<h:outputText value="Informe o grupo de trabalho para esta sessão:" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		
+		<h:form>
+			<p:focus />
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="Identificação" />
+				</f:facet>
+				
+				<h:outputLabel for="grupoTrabalho" value="Grupo de Trabalho *" />
+				<p:selectOneMenu id="grupoTrabalho" value="#{loginController.grupoTrabalho}" 
+					required="true"  converter="grupoTrabalhoConverter">
+					<f:selectItems value="#{loginController.gruposTrabalho}" 
+						var="grupoTrabalho" itemValue="#{grupoTrabalho}" itemLabel="#{grupoTrabalho.nome}" />
+				</p:selectOneMenu> 
+									
+				<f:facet name="footer">
+					<p:commandButton value="Selecionar" icon="ui-icon-check"
+						action="#{loginController.selecionarGrupo}" />
+					<p:button value="Cancelar" outcome="index" />
+				</f:facet>
+			</p:panelGrid>
+			
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+		</h:form>
+			
+	</ui:define>
+</ui:composition>
+</html>

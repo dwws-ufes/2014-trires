@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/_recursos/template.xhtml">
+	<ui:define name="titulo">
+		<h:outputText value="Editar Grupo de Trabalho" />
+	</ui:define>
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{grupoTrabalhoController.idSelecionado}" />
+		<f:event type="preRenderView" listener="#{grupoTrabalhoController.editar}" />
+	</f:metadata>
+
+	<ui:define name="conteudo">
+		<ui:include src="formGrupoTrabalho.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
+</html>

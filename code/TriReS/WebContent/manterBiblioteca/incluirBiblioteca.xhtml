@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/_recursos/template.xhtml">
+	<ui:define name="titulo">
+		<h:outputText value="Incluir Biblioteca" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{bibliotecaController.incluir}" />
+	</f:metadata>
+
+	<ui:define name="conteudo">
+		<ui:include src="formBiblioteca.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
+</html>

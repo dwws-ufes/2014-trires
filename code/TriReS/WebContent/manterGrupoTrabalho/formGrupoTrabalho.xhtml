@@ -1,0 +1,99 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.verificaAutorizacao}" />
+	</f:metadata>
+
+	<h:form>
+			
+		<p:focus />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText value="Formulário" />
+			</f:facet>
+			
+			<h:outputLabel for="nome" value="Nome *" />
+			<p:inputText id="nome" value="#{grupoTrabalhoController.grupoTrabalho.nome}" label="Nome" required="true" size="40">
+				<f:validateLength minimum="5" maximum="60" />
+			</p:inputText>
+			
+			<h:outputLabel for="descricao" value="Descrição *" />
+			<p:inputText id="descricao" value="#{grupoTrabalhoController.grupoTrabalho.descricao}" label="Descrição" required="true" size="60">
+				<f:validateLength minimum="5" maximum="100" />
+			</p:inputText>
+			
+			<h:outputLabel for="objetivo" value="Objetivo *" />
+			<p:inputTextarea id="objetivo" value="#{grupoTrabalhoController.grupoTrabalho.objetivo}" label="Objetivo" required="true" cols="60">
+				<f:validateLength minimum="5" maximum="255" />
+			</p:inputTextarea>
+			
+			<h:outputLabel for="palavrasChave" value="Palavras-chave *" />
+			<p:inputTextarea id="palavrasChave" value="#{grupoTrabalhoController.grupoTrabalho.palavrasChave}" label="Palavras-chave" required="true" cols="60">
+				<f:validateLength minimum="5" maximum="100" />
+			</p:inputTextarea>
+			
+			<h:outputLabel for="ativo" value="Ativo *" />
+			<p:selectBooleanButton id="ativo" value="#{grupoTrabalhoController.grupoTrabalho.ativo}" onLabel="Sim"
+				offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" required="true" label="Ativo" />
+			
+			<h:outputLabel for="usuarioLider" value="Líder *" />
+			<p:autoComplete id="usuarioLider" value="#{grupoTrabalhoController.grupoTrabalho.usuarioLider}"
+				completeMethod="#{grupoTrabalhoController.usuariosPorNome}"
+				var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}"
+				minQueryLength="3" maxResults="5" 
+				required="true" label="Usuário Líder"
+				emptyMessage="Usuário não encontrado"
+				forceSelection="true"
+				converter="usuarioConverter" />
+			
+			<h:outputLabel for="usuarioMembro" value="Membros *" />
+			<h:panelGroup>
+				<p:autoComplete id="usuarioMembro" value="#{grupoTrabalhoController.usuarioMembroSelecionado}"
+					completeMethod="#{grupoTrabalhoController.usuariosPorNome}"
+					var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario}"
+					minQueryLength="3" maxResults="5" 
+					emptyMessage="Usuário não encontrado"
+					forceSelection="true"
+					converter="usuarioConverter" >
+					<p:ajax event="itemSelect"  />
+				</p:autoComplete>
+				<p:commandButton icon="ui-icon-plus" immediate="true" update="dataTableUsuariosMembros" >
+					<p:collector value="#{grupoTrabalhoController.usuarioMembroSelecionado}" unique="true" addTo="#{grupoTrabalhoController.grupoTrabalho.usuariosMembros}" />
+				</p:commandButton>
+				<p:dataTable id="dataTableUsuariosMembros" var="usuario" emptyMessage="Não há membros neste grupo."
+					value="#{grupoTrabalhoController.grupoTrabalho.usuariosMembros}">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#</f:facet>
+						<p:commandLink value="Remover" immediate="true" update="dataTableUsuariosMembros">
+							<p:collector value="#{usuario}" removeFrom="#{grupoTrabalhoController.grupoTrabalho.usuariosMembros}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+			
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" icon="ui-icon-disk"
+					action="#{grupoTrabalhoController.salvar}" onclick="dlg.show();" oncomplete="dlg.hide();"
+					rendered="#{grupoTrabalhoController.grupoTrabalho != null}" />
+				<p:button value="Cancelar" outcome="listarGruposTrabalho" />
+			</f:facet>
+		</p:panelGrid>
+		
+		<p:dialog id="dialog" widgetVar="dlg" dynamic="true" modal="true"
+	    	closable="false" draggable="false" showHeader="false" resizable="false" >  
+	    	<h:graphicImage style="padding-top:3px;" title="Carregando..." alt="Carregando" value="../_recursos/img/loading.gif" />  
+		</p:dialog>
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+	</h:form>
+</ui:fragment>

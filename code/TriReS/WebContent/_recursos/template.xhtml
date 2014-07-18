@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/_recursos/css/estilo.css" media="screen" charset="UTF-8"  />
+	<link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/_recursos/img/favicon.ico"/>
+	<title>TriReS - <ui:insert name="titulo"></ui:insert></title>
+</h:head>
+
+<h:body>
+	<f:view contentType="text/html">
+	
+    <div id="pagina">
+        <div id="topo">
+	        <div id="informacoesUsuario">
+		        <ui:insert name="sidebar">
+					<ui:include src="../_componentes/info.xhtml" />
+				</ui:insert>
+	        </div>		
+    		
+	        <a href="#{facesContext.externalContext.requestContextPath}"><img src="#{facesContext.externalContext.requestContextPath}/_recursos/img/logomarca-Sistema2.gif" id="logomarcaSistema" alt="Sigla do Sistema"  /></a>
+        </div>
+	    
+	    <div id="curvaTopo">
+	        <img src="#{facesContext.externalContext.requestContextPath}/_recursos/img/curvaEsquerda.gif" id="curvaEsquerda" alt=""  />
+	        <img src="#{facesContext.externalContext.requestContextPath}/_recursos/img/curvaDireita.gif" id="curvaDireita" alt=""  />
+	    </div>
+    	    
+        <div id="conteudo">
+            <div id="menu">
+            	<div class="menu">
+	    		    <ui:insert name="sidebar">
+						<ui:include src="../_componentes/menu.xhtml" />
+					</ui:insert>	
+				</div>
+            </div>
+            
+			<div id="dados">
+				<h1 class="tituloPrincipal"><ui:insert name="titulo"></ui:insert></h1>
+							
+				<ui:insert name="conteudo"></ui:insert>
+				
+				<p />
+			</div>
+        </div>
+        <div id="rodape">
+            <label>Estêvão Bissoli Saleme - UFES/PPGI/LPRM &copy; 2014 | Versão 1.0.0</label>
+        </div>
+        
+        <div id="curvaRodape">
+            <img src="#{facesContext.externalContext.requestContextPath}/_recursos/img/curvaEsquerda_baixo.gif" class="curvaEsquerda" alt=""  />
+            <img src="#{facesContext.externalContext.requestContextPath}/_recursos/img/curvaDireita_baixo.gif" class="curvaDireita" alt=""  />
+        </div>        
+    </div>
+    
+    </f:view>
+</h:body>
+</html>

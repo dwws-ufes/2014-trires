@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_recursos/template.xhtml">
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{trabalhosGrupoController.inicializaPagina}" />
+	</f:metadata>
+	
+	<ui:define name="titulo">
+		<h:outputText value="Lista de trabalhos selecionados do grupo #{loginController.grupoTrabalho.nome}" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		
+		<h:form>
+			<p:dataTable id="dataTable" var="trabalho"
+				value="#{trabalhosGrupoController.trabalhos}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,25,50" sortBy="#{trabalho.titulo}">
+				
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+	
+				<p:column sortBy="#{trabalho.titulo}">
+					<f:facet name="header">
+						<h:outputText value="Título" />
+					</f:facet>
+					<h:outputText value="#{trabalho.titulo}" />
+				</p:column>
+				
+				<p:column sortBy="#{trabalho.historicoBusca.biblioteca.nome}">
+					<f:facet name="header">
+						<h:outputText value="Biblioteca" />
+					</f:facet>
+					<h:outputText value="#{trabalho.historicoBusca.biblioteca.nome}" />
+				</p:column>
+				
+				<p:column sortBy="#{trabalho.historicoBusca.usuario.nome}">
+					<f:facet name="header">
+						<h:outputText value="Selecionado por" />
+					</f:facet>
+					<h:outputText value="#{trabalho.historicoBusca.usuario.nome}" />
+				</p:column>
+							
+				<p:column sortBy="#{trabalho.notaAvaliacao}">
+					<f:facet name="header">
+						<h:outputText value="Avaliação" />
+					</f:facet>
+					<p:rating value="#{trabalho.notaAvaliacao}" stars="5">
+						<p:ajax event="rate" listener="#{trabalhosGrupoController.incluirAvaliacaoTrabalho}" />
+						<p:ajax event="cancel" listener="#{trabalhosGrupoController.removerAvaliacaoTrabalho}" />
+					</p:rating>
+				</p:column>
+				
+				<p:rowExpansion>
+					<p:panelGrid columns="2" columnClasses="label,value" style="width:700px;">
+		                <f:facet name="header">
+		                    <h:outputText value="Detalhes:" />
+		                </f:facet>
+
+		 				<h:outputText value="Selecionado em:" />
+		                <h:outputText value="#{trabalho.historicoBusca.dataHora}"> 
+					        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />  
+					    </h:outputText>  	
+		                
+		                <h:outputText value="String da pesquisa:" />
+		                <h:outputText value="#{trabalho.historicoBusca.textoInformado}" />	  
+		                
+		                <h:outputText value="Qtde trabalhos da pesquisa:" />
+		                <h:outputText value="#{trabalho.historicoBusca.quantidadeTrabalhosEncontrados}" />	  
+		 
+		                <h:outputText value="SameAs:" />
+		                <h:outputLink target="_blank" value="#{trabalho.sameAs}"> 
+							<h:outputText value="#{trabalho.sameAs}"/>
+						</h:outputLink>
+		                
+		                <h:outputText value="Título:" />
+		                <h:outputText value="#{trabalho.titulo}" />
+		                
+		                <h:outputText value="Resumo:" />
+		                <h:outputText value="#{trabalho.resumo}" />
+		                
+		                <h:outputText value="Autores:" />
+		                <h:outputText value="#{trabalho.autores}" />
+		                
+		                <h:outputText value="Evento:" />
+						<h:outputText value="#{trabalho.evento}"/>
+		                
+		                <h:outputText value="Data:" />
+		                <h:outputText value="#{trabalho.data}" />
+		                
+		            </p:panelGrid>
+				</p:rowExpansion>
+		
+			</p:dataTable>
+		</h:form>
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+		
+	</ui:define>
+</ui:composition>
+</html>

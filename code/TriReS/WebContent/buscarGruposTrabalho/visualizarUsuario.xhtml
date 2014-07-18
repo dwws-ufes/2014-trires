@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_recursos/template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{buscaGruposTrabalhoController.idUsuarioSelecionado}" />
+		<f:event type="preRenderView" listener="#{buscaGruposTrabalhoController.visualizarUsuario}" />
+	</f:metadata>
+
+	<ui:define name="titulo">
+		<h:outputText value="Dados do Usuário" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form>
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="Informações" />
+				</f:facet>
+			
+				<h:outputLabel value="URI" />
+				<h:outputText value="#{buscaGruposTrabalhoController.urlBase}/usuario/uri/#{buscaGruposTrabalhoController.usuario.id}" />
+			
+				<h:outputLabel value="Nome" />
+				<h:outputText value="#{buscaGruposTrabalhoController.usuario.nome}" />
+				
+				<h:outputLabel value="Descrição" />
+				<h:outputText value="#{buscaGruposTrabalhoController.usuario.descricao}" />
+				
+				<h:outputLabel value="Email" />
+				<h:outputText value="#{buscaGruposTrabalhoController.usuario.email}" />
+				
+				<h:outputLabel value="Instituição" />
+				<h:outputText value="#{buscaGruposTrabalhoController.usuario.instituicao}" />
+				
+				<h:outputLabel value="Currículo Lattes" />
+				<h:outputLink value="#{buscaGruposTrabalhoController.usuario.linkLattes}" target="_blank">
+					<h:outputText value="#{buscaGruposTrabalhoController.usuario.linkLattes}"/>
+				</h:outputLink>
+				
+			</p:panelGrid>
+	
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
