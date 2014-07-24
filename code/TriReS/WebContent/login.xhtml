@@ -30,11 +30,16 @@
 				
 				<f:facet name="footer">
 					<p:commandButton value="Entrar" icon="ui-icon-check"
+						onclick="dlg.show();" oncomplete="dlg.hide();"
 						actionListener="#{loginController.autenticar}" update="senha" />
 					<p:button value="Cancelar" outcome="index" />
 				</f:facet>
 			</p:panelGrid>
 			
+			<p:dialog id="dialog" widgetVar="dlg" dynamic="true" modal="true"
+		    	closable="false" draggable="false" showHeader="false" resizable="false" >  
+		    	<h:graphicImage style="padding-top:3px;" title="Carregando..." alt="Carregando" value="../_recursos/img/loading.gif" />  
+			</p:dialog>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
 		</h:form>
 			
