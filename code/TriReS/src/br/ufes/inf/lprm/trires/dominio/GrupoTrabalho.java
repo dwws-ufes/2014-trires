@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -25,7 +25,7 @@ public class GrupoTrabalho implements Serializable {
 	private String palavrasChave;
 	@OneToOne
 	private Usuario usuarioLider;
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Usuario> usuariosMembros;
 	private boolean isAtivo;
 	private Date dataHoraCriacao = new Date();
